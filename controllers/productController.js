@@ -41,6 +41,8 @@ async function store(req, res) {
     });
 
     form.parse(req, async (err, fields, files) => {
+      const incomingFiles = files["image[]"];
+
       await Product.create({
         name: fields.name,
         price: fields.price,
@@ -48,19 +50,19 @@ async function store(req, res) {
         description: fields.description,
         subdescription: fields.subdescription,
         subcategory: fields.subcategory,
-        image: files.image.newFilename,
+        image: incomingFiles.newFilename,
         featured: fields.featured,
         slug: fields.slug,
       });
       const { data, error } = await supabase.storage
         .from("img")
         .upload(
-          files.image.newFilename,
-          fs.createReadStream(files.image.filepath),
+          incomingFiles.newFilename,
+          fs.createReadStream(incomingFiles.filepath),
           {
             cacheControl: "3600",
             upsert: false,
-            contentType: files.image.mimeType,
+            contentType: incomingFiles.mimeType,
             duplex: "half",
           }
         );

@@ -1,13 +1,15 @@
 const { Order } = require("../models");
 
-
 // Display a listing of the resource.
 async function index(req, res) {
-  const orders = await Order.findAll()
+  const orders = await Order.findAll();
   return res.json(orders);
 }
 // Display the specified resource.
-async function show(req, res) {}
+async function show(req, res) {
+  const order = await Order.findByPk(req.params.id);
+  return res.json(order);
+}
 
 // Store a newly created resource in storage.
 async function store(req, res) {
