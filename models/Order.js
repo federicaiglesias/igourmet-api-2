@@ -1,7 +1,5 @@
 const { Model, DataTypes } = require("sequelize");
-const { nanoid } = require("nanoid")
-
-
+const { nanoid } = require("nanoid");
 
 class Orders extends Model {
   static initModel(sequelize) {
@@ -23,12 +21,12 @@ class Orders extends Model {
           type: DataTypes.JSON,
         },
         status: {
-          type: DataTypes.STRING, 
+          type: DataTypes.STRING,
         },
       },
       {
         sequelize,
-        modelName: "order", 
+        modelName: "order",
         hooks: {
           beforeCreate: (order) => {
             order.orderNumber = nanoid(10);
@@ -41,4 +39,3 @@ class Orders extends Model {
 }
 
 module.exports = Orders;
-
