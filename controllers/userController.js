@@ -15,7 +15,7 @@ async function hashPassword(password) {
 async function index(req, res) {
   try {
     const users = await User.findAll({
-      attributes: { exclude: ['password'] }, 
+      attributes: { exclude: ["password"] },
       include: {
         model: Order,
         as: "orders",
@@ -32,8 +32,8 @@ async function index(req, res) {
 async function show(req, res) {
   try {
     const user = await User.findByPk(req.params.id, {
-      attributes: { exclude: ['password'] }, 
-      include: "orders"
+      attributes: { exclude: ["password"] },
+      include: "orders",
     });
     if (!user) return res.status(404).send("Usuario no encontrado");
     return res.status(200).json(user);
@@ -41,7 +41,6 @@ async function show(req, res) {
     return res.status(500).send("Error al obtener el usuario");
   }
 }
-
 
 // Store a newly created resource in storage.
 async function store(req, res) {
